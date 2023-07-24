@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button {
+  border: 1px solid #000;
+}
+
+.error-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 60px;
+  color: #fff;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+}

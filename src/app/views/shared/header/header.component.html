@@ -1,0 +1,31 @@
+<button
+  class="green-button nav-container toggle-header block"
+  (click)="isActiveHeader = !isActiveHeader"
+>
+  <div class="hamburger-lines" [class.active]="isActiveHeader">
+    <span class="line line1"></span>
+    <span class="line line2"></span>
+    <span class="line line3"></span>
+  </div>
+</button>
+
+<header
+  class="w-full flex items-center flex-col justify-around xl:flex-row"
+  [class.active]="isActiveHeader"
+>
+  <div
+    class="logo mr-4 flex items-center"
+    (click)="isActiveHeader = !isActiveHeader"
+  >
+    <img src="favicon.ico" alt="Converter logo" />
+
+    <p class="text-white ml-3">Converter</p>
+  </div>
+
+  <div class="cources flex">
+    <span>Current exchange rate: </span>
+    <span>USD: <strong>{{USD.rate}}</strong></span>
+    <span>EUR: <strong>{{EUR.rate}}</strong></span>
+  </div>
+
+</header>

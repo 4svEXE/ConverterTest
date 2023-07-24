@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+    "target": "https://bank.gov.ua/NBUStatService/v1/",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
