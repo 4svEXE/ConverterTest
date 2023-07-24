@@ -5,3 +5,9 @@ export interface ExchangeInterface {
   cc: string;
   exchangedate: string;
 }
+
+export interface ExchangeRatesInterface {
+  [from: string]: {
+    [to: string]: number;
+  };
+}

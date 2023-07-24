@@ -11,22 +11,28 @@ import { fakeExchange } from "src/app/db/fakeExchange";
 export class HeaderComponent {
   isActiveHeader: boolean = false;
 
-  exchanges: ExchangeInterface[] = [];
-  USD: ExchangeInterface = fakeExchange;
-  EUR: ExchangeInterface = fakeExchange;
+  exchanges: ExchangeInterface[] = []; // Масив об'єктів валют з API
+  USD: ExchangeInterface = fakeExchange; // Об'єкт валюти USD, за замовчуванням - фейкові дані
+  EUR: ExchangeInterface = fakeExchange; // Об'єкт валюти EUR, за замовчуванням - фейкові дані
 
   constructor(private converterApiService: ConverterApiService) {}
 
+  // Метод для отримання списку валют зі служби API обміну валют
   getExchanges() {
     this.converterApiService.getExchanges().subscribe((data: any) => {
       this.exchanges = data;
 
-      this.USD = data.filter((item: ExchangeInterface) => item.cc === "USD")[0];
-      this.EUR = data.filter((item: ExchangeInterface) => item.cc === "EUR")[0];
+      // Знаходимо об'єкти валют для USD і EUR зі списку
+      this.USD =
+        data.find((item: ExchangeInterface) => item.cc === "USD") ||
+        fakeExchange;
+      this.EUR =
+        data.find((item: ExchangeInterface) => item.cc === "EUR") ||
+        fakeExchange;
     });
   }
 
   ngOnInit() {
-    this.getExchanges();
+    this.getExchanges(); // Отримуємо список валют при завантаженні компонента
   }
 }
