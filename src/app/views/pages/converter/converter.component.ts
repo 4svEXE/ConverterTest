@@ -1,7 +1,10 @@
 import { Component } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ConverterApiService } from "src/app/services/converter-api.service";
-import { ExchangeInterface, ExchangeRatesInterface } from "./../../../interfaces/index";
+import {
+  ExchangeInterface,
+  ExchangeRatesInterface,
+} from "./../../../interfaces/index";
 import { fakeExchange } from "src/app/db/fakeExchange";
 
 @Component({
@@ -20,7 +23,9 @@ export class ConverterComponent {
   // Метод для створення форми конвертера з заданим значенням валюти за замовчуванням
   createConverterForm(defaultCc: string): FormGroup {
     return new FormGroup({
-      quantity: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+      quantity: new FormControl("", [
+        Validators.pattern("^[0-9]+(.[0-9]{1,4})?$"),
+      ]),
       cc: new FormControl(defaultCc, Validators.required),
     });
   }
@@ -52,7 +57,7 @@ export class ConverterComponent {
   }
 
   // Метод для конвертації валют з форми конвертера
-  convertFrom(): void {
+  convert(direction: "from" | "to"): void {
     const forms = {
       from: {
         quantity: this.converterFromForm.get("quantity")?.value,
@@ -81,12 +86,22 @@ export class ConverterComponent {
     };
 
     // Знаходимо курс між валютами або встановлюємо значення 1, якщо курс не знайдено
-    let rate = exchangeRates[forms.from.cc][forms.to.cc] || 1;
+    let rate;
 
     // Обчислюємо результат конвертації
-    let res = forms.from.quantity * rate;
+    let result;
 
     // Встановлюємо результат конвертації в поле кількості для валюти, куди конвертуємо
-    this.converterToForm.get("quantity")?.setValue(res);
+    // Змінна direction аби обчислювати конвертації двосторонньо
+    if (direction === "from") {
+      rate = exchangeRates[forms.from.cc][forms.to.cc] || 1;
+      result = (forms.from.quantity * rate).toFixed(4);
+      this.converterToForm.get("quantity")?.setValue(result);
+    }
+    if (direction === "to") {
+      rate = exchangeRates[forms.to.cc][forms.from.cc] || 1;
+      result = (forms.to.quantity * rate).toFixed(4);
+      this.converterFromForm.get("quantity")?.setValue(result);
+    }
   }
 }

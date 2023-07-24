@@ -1,0 +1,46 @@
+<!-- currency-converter.component.html -->
+<div class="converter">
+  <h2>{{ title }}</h2>
+
+  <form [formGroup]="converterForm">
+    <div class="shadow-box">
+      <div class="calculator-item">
+        <div class="flex flex-col">
+          <h6>Введіть кількість</h6>
+          <div class="flex input-group">
+            <input
+
+              type="text"
+              placeholder="Введіть кількість"
+              formControlName="quantity"
+              (input)="formValueChanged.emit()"
+            />
+
+            <div
+              class="error-message"
+              *ngIf="converterForm.get('quantity')?.invalid"
+            >
+              Введіть тільки числове значення.
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col">
+          <h6>Оберіть валюту</h6>
+
+          <div class="flex input-group">
+            <select formControlName="cc" (change)="formValueChanged.emit()">
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="UAH">UAH</option>
+            </select>
+
+            <div class="error-message" *ngIf="converterForm.get('cc')?.invalid">
+              Виберіть одну з опцій.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

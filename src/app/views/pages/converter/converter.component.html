@@ -1,101 +1,17 @@
 <div class="container flex items-center justify-center min-h-screen">
   <div class="converter-container grid grid-cols-1 md:grid-cols-2">
-    <div class="converter">
-      <h2>Перевезти з:</h2>
+    <!-- Перший конвертер -->
+    <app-currency-converter
+      [converterForm]="converterFromForm"
+      (formValueChanged)="convert('from')"
+      title="Перевезти з:"
+    />
 
-      <form class="" [formGroup]="converterFromForm">
-        <div class="shadow-box">
-          <div class="calculator-item">
-            <div class="flex flex-col">
-              <h6>Введіть кількість</h6>
-              <div class="flex input-group">
-                <input
-                  pattern="^\d+$"
-                  type="text"
-                  placeholder="Введіть кількість"
-                  formControlName="quantity"
-                  (input)="convertFrom()"
-                />
-
-                <div
-                  class="error-message"
-                  *ngIf="converterFromForm.get('quantity')?.invalid"
-                >
-                  Введіть тільки числове значення.
-                </div>
-              </div>
-            </div>
-
-            <div class="flex flex-col">
-              <h6>Оберіть валюту</h6>
-
-              <div class="flex input-group">
-                <select formControlName="cc" (change)="convertFrom()">
-                  <option value="USD">USD</option>
-                  <option value="EUR">EUR</option>
-                  <option value="UAH">UAH</option>
-                </select>
-
-                <div
-                  class="error-message"
-                  *ngIf="converterFromForm.get('cc')?.invalid"
-                >
-                  Виберіть одну з опцій.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <div class="converter">
-      <h2>Перевезти в:</h2>
-
-      <form class="" [formGroup]="converterToForm">
-        <div class="shadow-box">
-          <div class="calculator-item">
-            <div class="flex flex-col">
-              <h6>Введіть кількість</h6>
-              <div class="flex input-group">
-                <input
-                  pattern="^\d+$"
-                  type="text"
-                  placeholder="Введіть кількість"
-                  formControlName="quantity"
-                  (input)="convertFrom()"
-                />
-
-                <div
-                  class="error-message"
-                  *ngIf="converterToForm.get('quantity')?.invalid"
-                >
-                  Введіть тільки числове значення.
-                </div>
-              </div>
-            </div>
-
-            <div class="flex flex-col">
-              <h6>Оберіть валюту</h6>
-
-              <div class="flex input-group">
-                <select formControlName="cc" (change)="convertFrom()">
-                  <option value="USD">USD</option>
-                  <option value="EUR">EUR</option>
-                  <option value="UAH">UAH</option>
-                </select>
-
-                <div
-                  class="error-message"
-                  *ngIf="converterToForm.get('cc')?.invalid"
-                >
-                  Виберіть одну з опцій.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
+    <!-- Другий конвертер -->
+    <app-currency-converter
+      [converterForm]="converterToForm"
+      (formValueChanged)="convert('to')"
+      title="Перевезти в:"
+    />
   </div>
 </div>

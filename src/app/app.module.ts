@@ -9,9 +9,10 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HeaderComponent } from "./views/shared/header/header.component";
 import { ConverterComponent } from './views/pages/converter/converter.component';
+import { CurrencyConverterComponent } from './views/pages/converter/currency-converter/currency-converter.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, ConverterComponent],
+  declarations: [AppComponent, HeaderComponent, ConverterComponent, CurrencyConverterComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
